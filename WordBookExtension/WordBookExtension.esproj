@@ -1,0 +1,5 @@
+﻿<Project Sdk="Microsoft.VisualStudio.JavaScript.Sdk/0.5.271090-alpha">
+  <ItemGroup>
+    <None Remove="GoogleChrome chrome-extensions-samples main functional-samples-tutorial.hello-world.zip" />
+  </ItemGroup>
+</Project>
