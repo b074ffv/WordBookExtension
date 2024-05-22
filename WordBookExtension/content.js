@@ -13,7 +13,7 @@ document.addEventListener('click', function (event) {
         //console.log("button created.");
         let button = document.createElement('button');
         button.id = 'floatingButton';
-        button.textContent = selectedText;
+        button.textContent = `save: ${selectedText}`;
         button.style.position = 'absolute';
         button.style.top = `${event.pageY}px`; //クリック時のマウスのY座標
         button.style.left = `${event.pageX}px`; //クリック時のマウスのX座標
