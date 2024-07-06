@@ -4,16 +4,16 @@
   "version": "1.0",
   "permissions": [ "activeTab", "storage" ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "js/background.js"
   },
   "content_scripts": [
     {
       "matches": [ "<all_urls>" ],
-      "js": [ "content.js" ],
-      "css": [ "styles.css" ]
+      "js": [ "dist/content.bundle.js" ],
+      "css": [ "css/styles.css" ]
     }
   ],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "html/popup.html"
   }
 }
