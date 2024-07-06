@@ -1,0 +1,63 @@
+#floatingButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+#floatingButton:hover {
+    background-color: #0056b3;
+}
+
+#wordBook_body {
+    width: 32em;
+}
+
+.deleteWordButton {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.word {
+    display: inline-block;
+}
+.t {
+    background-color: #FFFFFF;
+    border: none;
+    padding: 0.5em;
+    margin-bottom: 0.5em;
+    border-radius: 0.5em;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.div_category {
+    background-color: #C0E1EE;
+}
+
+.div_word {
+    background-color: #98CEE4;
+    margin: 1em;
+}
+
+.div_wordData {
+    background-color: #F2F2F2;
+}
+
+.div_debugInfo {
+    background-color: #F2F2F2;
+    cursor: pointer;
+}
+
+.button_delete {
+    background-color: #FF5B5B;
+    color: white;
+    margin-bottom: 0em;
+}
