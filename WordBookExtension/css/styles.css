@@ -32,32 +32,60 @@
 .t {
     background-color: #FFFFFF;
     border: none;
-    padding: 0.5em;
-    margin-bottom: 0.5em;
-    border-radius: 0.5em;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-size: initial;
+    text-align: left;
+    max-width: 100%;
+    word-break: break-all;
 }
 
 .div_category {
     background-color: #C0E1EE;
+    text-align: center;
+    font-size: 200%;
+    padding: 0.1rem;
+    font-weight: bold;
 }
 
 .div_word {
     background-color: #98CEE4;
-    margin: 1em;
+    margin: 1rem;
+    padding: 0.1rem;
+}
+
+.div_wordName {
+    background-color: #F2F2F2;
+    font-size: 120%;
+    font-weight: bold;
 }
 
 .div_wordData {
     background-color: #F2F2F2;
+    font-size: 80%;
 }
 
 .div_debugInfo {
     background-color: #F2F2F2;
+    font-size: 80%;
     cursor: pointer;
 }
 
 .button_delete {
     background-color: #FF5B5B;
+    font-size: 80%;
     color: white;
-    margin-bottom: 0em;
+    cursor: pointer;
+}
+
+.saved_word {
+    cursor: pointer;
+}
+
+.highlight {
+    background-color: greenyellow;
+    font-weight: bold;
+    cursor: pointer;
 }
