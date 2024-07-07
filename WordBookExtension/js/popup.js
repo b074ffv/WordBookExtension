@@ -18,27 +18,40 @@ document.addEventListener('DOMContentLoaded', function () {
                     textContent: null,
                 });
 
+                // 単語名
                 let div_wordName = Object.assign(document.createElement('div'), {
-                    className: `t div_wordData`,
+                    className: `t div_wordName`,
                     textContent: word.name,
                 });
+                div_word.appendChild(div_wordName);
 
-                let div_debugInfo = Object.assign(document.createElement('div'), {
+                // 単語の説明
+                let div_wordDesc = Object.assign(document.createElement('div'), {
+                    className: `t div_wordData`,
+                    textContent: word.desc,
+                });
+                div_word.appendChild(div_wordDesc);
+
+                // デバッグ情報
+                let bt_debugInfo = Object.assign(document.createElement('button'), {
                     className: `t div_debugInfo`,
                     textContent: `debug info...`,
                     isClosed: true,
                 });
-                div_debugInfo.addEventListener('click', function () {
-                    let isClosed = div_debugInfo.isClosed;
-                    div_debugInfo.textContent = isClosed ? JSON.stringify(word) : `debug info...`;
-                    div_debugInfo.isClosed = !isClosed;
+                bt_debugInfo.addEventListener('click', function () {
+                    let isClosed = bt_debugInfo.isClosed;
+                    bt_debugInfo.textContent = isClosed ? JSON.stringify(word) : `debug info...`;
+                    bt_debugInfo.isClosed = !isClosed;
                 });
+                div_word.appendChild(bt_debugInfo);
+
+                // 削除ボタン
                 let bt_delete = Object.assign(document.createElement('button'), {
                     className: 't button_delete',
                     textContent: 'delete',
                 });
                 bt_delete.addEventListener('click', function () {
-                    wordList = wordList.filter(element => element.uuid != word.uuid); // 単語を単語リストから除去
+                    wordList = wordList.filter(element => element.uuid !== word.uuid); // 単語を単語リストから除去
                     // 単語をカテゴリリストから除去
                     Object.entries(categoryList).forEach(([key, value]) => {
                         categoryList[key].filter(element => element.uuid !== word.uuid);
@@ -48,10 +61,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     });
                     div_word.remove(); // 単語を除去
                 });
-
-                div_word.appendChild(div_wordName);
-                div_word.appendChild(div_debugInfo);
                 div_word.appendChild(bt_delete);
+
                 div_category.appendChild(div_word);
             });
             body.appendChild(div_category);

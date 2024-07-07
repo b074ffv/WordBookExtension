@@ -2,20 +2,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": [ "<node_internals>/**" ],
-      "program": "${workspaceFolder}/app.js",
-      "cwd": "${workspaceFolder}",
-      "console": "externalTerminal"
-    },
-    {
       "type": "edge",
       "request": "launch",
       "name": "edge",
+      //"url": "https://example.com",
       "url": "https://www.gutenberg.org/cache/epub/84/pg84-images.html",
-      "runtimeArgs": [ "--load-extension=${workspaceFolder}" ],
+      "runtimeArgs": [ "--load-extension=${workspaceFolder}", "--auto-open-devtools-for-tabs" ],
       "runtimeExecutable": "C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe"
     }
   ]

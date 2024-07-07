@@ -61,3 +61,107 @@ window.addEventListener('scroll', function () {
     //    existingButton.remove();
     //}
 });
+
+function highlightText(node, wordList) {
+    if (node.nodeType === Node.TEXT_NODE) {
+        let pos_last = 0;
+        let beforeIndices = [];
+        let afterIndices = [];
+        let highlightWordIndices = [];
+
+        while (true) {
+            console.log(node.textContent);
+            let posList = wordList.map(word => {
+                return node.textContent.indexOf(word.name, pos_last);
+            });
+            console.log(`posList: ${posList}`);               // 各単語を発見した最初の位置の配列
+            if (posList.every(element => element < 0)) break; // すべて該当せず終了
+            let indices = Array.from(posList.keys());         // インデックスの配列を作成
+            indices.sort((a, b) => {                          // 位置に基づいてインデックスを並べ替え
+                if (posList[a] < 0) {
+                    return 1;
+                } else if (posList[b] < 0) {
+                    return -1;
+                } else return posList[a] - posList[b];
+            });
+            let word = wordList[indices[0]];                  // 最初に発見した単語
+            highlightWordIndices.push(indices[0]);
+            beforeIndices.push(posList[indices[0]]);
+            afterIndices.push(posList[indices[0]] + word.name.length);
+            pos_last = posList[indices[0]] + word.name.length; // 検索位置の更新
+        }
+        // highlight要素を挿入
+        let parent = node.parentNode;
+        console.log(`highlightWordIndices: ${highlightWordIndices}`);
+        console.log(`beforeIndices: ${beforeIndices}`);
+        console.log(`afterIndices: ${afterIndices}`);
+
+        if (highlightWordIndices.length != 0) {
+            highlightWordIndices.forEach((index, i) => {
+                let span = Object.assign(document.createElement('span'), {
+                    className: 'highlight',
+                    textContent: wordList[index].name,
+                    onmouseenter: (event => {
+                        let div_word = Object.assign(document.createElement('div'), {
+                            className: `t div_word`,
+                            textContent: null,
+                            id: `word_floating`,
+                            style: `position: absolute; top: ${event.pageY}px; left: ${event.pageX}px; z-index: 1000;`,
+                        });
+
+                        // 単語名
+                        let div_wordName = Object.assign(document.createElement('div'), {
+                            className: `t div_wordName`,
+                            textContent: wordList[index].name,
+                        });
+                        div_word.appendChild(div_wordName);
+
+                        // 単語の説明
+                        let div_wordDesc = Object.assign(document.createElement('div'), {
+                            className: `t div_wordData`,
+                            textContent: wordList[index].desc,
+                        });
+                        div_word.appendChild(div_wordDesc);
+
+                        // デバッグ情報
+                        let bt_debugInfo = Object.assign(document.createElement('button'), {
+                            className: `t div_debugInfo`,
+                            textContent: `debug info...`,
+                            isClosed: true,
+                        });
+                        bt_debugInfo.addEventListener('click', function () {
+                            let isClosed = bt_debugInfo.isClosed;
+                            bt_debugInfo.textContent = isClosed ? JSON.stringify(wordList[index]) : `debug info...`;
+                            bt_debugInfo.isClosed = !isClosed;
+                        });
+                        div_word.appendChild(bt_debugInfo);
+                        document.body.appendChild(div_word);
+                    }),
+                    onmouseleave: (event => {
+                        let div_word = document.getElementById('word_floating');
+                        div_word.remove();
+                    }),
+                });
+                let before = node.textContent.slice(i <= 0 ? 0 : afterIndices[i - 1], beforeIndices[i]);
+                let after = node.textContent.slice(afterIndices[i], i >= node.textContent.length - 1 ? node.textContent.length - 1 : beforeIndices[i + 1]);
+
+                parent.insertBefore(document.createTextNode(before), node);
+                parent.insertBefore(span, node);
+                parent.insertBefore(document.createTextNode(after), node);
+            });
+            parent.removeChild(node);
+        }
+    } else {
+        for (let i = 0; i < node.childNodes.length; i++) {
+            if (node.childNodes[i].className !== 'highlight') {
+                highlightText(node.childNodes[i], wordList);
+            }
+        }
+    }
+}
+
+window.onload = function () {
+    chrome.storage.local.get({ wordList: [] }, function (result) {
+        highlightText(document.body, result.wordList);
+    });
+};
