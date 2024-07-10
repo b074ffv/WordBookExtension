@@ -45,7 +45,7 @@
 .div_category {
     background-color: #C0E1EE;
     text-align: center;
-    font-size: 200%;
+    font-size: 2rem;
     padding: 0.1rem;
     font-weight: bold;
 }
@@ -54,17 +54,20 @@
     background-color: #98CEE4;
     margin: 1rem;
     padding: 0.1rem;
+    font-size: 1rem;
+    font-weight: normal;
 }
 
 .div_wordName {
     background-color: #F2F2F2;
-    font-size: 120%;
+    font-size: 1.2rem;
     font-weight: bold;
 }
 
 .div_wordData {
     background-color: #F2F2F2;
-    font-size: 80%;
+    font-size: 0.8rem;
+    font-weight: normal;
 }
 
 .div_debugInfo {
