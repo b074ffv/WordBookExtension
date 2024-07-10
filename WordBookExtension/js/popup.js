@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     chrome.storage.local.get({ wordList: [], categoryList: {} }, function (result) {
         let wordList = result.wordList;
