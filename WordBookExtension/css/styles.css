@@ -1,4 +1,4 @@
-#floatingButton {
+﻿#floatingButton {
     background-color: #007bff;
     color: white;
     border: none;
@@ -88,7 +88,12 @@
 }
 
 .highlight {
-    background-color: greenyellow;
+    /*background-color: greenyellow;*/
     font-weight: bold;
     cursor: pointer;
+    position: relative;
+    display: inline-block;
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-style: wavy;
 }
