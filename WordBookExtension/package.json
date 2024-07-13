@@ -2,6 +2,7 @@
   "author": "",
   "dependencies": {
     "chrome-types": "^0.1.283",
+    "node-fetch": "^3.3.2",
     "uuid": "^10.0.0",
     "webpack": "^5.92.1"
   },

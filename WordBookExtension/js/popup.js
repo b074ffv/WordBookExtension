@@ -1,9 +1,11 @@
 
 document.addEventListener('DOMContentLoaded', function () {
-    chrome.storage.local.get({ wordList: [], categoryList: {} }, function (result) {
+    chrome.storage.local.get({ wordList: [], categoryList: {}, userProfile: {} }, function (result) {
         let wordList = result.wordList;
         let categoryList = result.categoryList;
+        let userProfile = result.userProfile;
         let body = document.getElementById('wordBook_body');
+        let apiKey = userProfile['apiKey'] || '';
 
         Object.entries(categoryList).forEach(([category, idList]) => {
             let wordList_ext = wordList.filter(element => idList.includes(element.uuid)); // カテゴリに含まれている単語を単語リストから抽出
@@ -68,6 +70,37 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             body.appendChild(div_category);
         });
+
+        let div_apiKey = Object.assign(document.createElement('div'), {
+            className: `t div_category`,
+            textContent: null,
+        });
+
+        // APIキー設定
+        let input_API_chatGPT = Object.assign(document.createElement('input'), {
+            id: 'apiKeyInput',
+            className: 't',
+            type: 'text',
+            placeholder: 'Enter your API key',
+            width: '20rem',
+            value: apiKey,
+        });
+        div_apiKey.appendChild(input_API_chatGPT);
+
+        // APIキー設定ボタン
+        let button_API_chatGPT = Object.assign(document.createElement('button'), {
+            className: `t`,
+            textContent: `set`,
+            style: `display: flex; justify-content: flex-end;`,
+        });
+        button_API_chatGPT.addEventListener('click', function () {
+            userProfile['apiKey'] = input_API_chatGPT.value;
+            chrome.storage.local.set({ userProfile: userProfile }, function () {
+                console.log(`set new api_key: ${userProfile['apiKey']}`);
+            });
+        });
+        div_apiKey.appendChild(button_API_chatGPT);
+
         // 全削除ボタン
         let button_deleteAll = Object.assign(document.createElement('button'), {
             className: `t button_delete`,
@@ -81,8 +114,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             body.replaceChildren() // 単語をすべて除去
             body.appendChild(button_deleteAll);
+            body.appendChild(div_apiKey);
         });
         body.appendChild(button_deleteAll);
+
+        body.appendChild(div_apiKey);
     });
 });
-
