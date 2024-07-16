@@ -1,4 +1,4 @@
-#floatingButton {
+﻿#floatingButton {
     background-color: #007bff;
     color: white;
     border: none;
@@ -13,7 +13,7 @@
 }
 
 #wordBook_body {
-    width: 32em;
+    width: 16rem;
 }
 
 .deleteWordButton {
@@ -30,7 +30,7 @@
     display: inline-block;
 }
 .t {
-    background-color: #FFFFFF;
+    background-color: #F2F2F2;
     border: none;
     padding: 0.5rem;
     margin: 0.5rem;
@@ -45,7 +45,7 @@
 .div_category {
     background-color: #C0E1EE;
     text-align: center;
-    font-size: 2rem;
+    font-size: 1rem;
     padding: 0.1rem;
     font-weight: bold;
 }
@@ -62,6 +62,7 @@
     background-color: #F2F2F2;
     font-size: 1.2rem;
     font-weight: bold;
+    text-align: center;
 }
 
 .div_wordData {
@@ -88,7 +89,12 @@
 }
 
 .highlight {
-    background-color: greenyellow;
+    /*background-color: greenyellow;*/
     font-weight: bold;
     cursor: pointer;
+    position: relative;
+    display: inline;
+    text-decoration: underline;
+    text-decoration-color: red;
+    text-decoration-style: wavy;
 }
