@@ -13,7 +13,11 @@
 }
 
 #wordBook_body {
-    width: 16rem;
+    min-width: 16rem;
+}
+
+#vocabTest_body {
+    min-width: 16rem;
 }
 
 .deleteWordButton {
