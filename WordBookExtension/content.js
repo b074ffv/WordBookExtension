@@ -4,6 +4,9 @@ let wordList = {};
 let categoryList = {};
 let userProfile = {};
 
+if (typeof browser === "undefined") {
+    var browser = chrome;
+}
 document.addEventListener('click', function (event) {
     let selection = window.getSelection();
     let selectedText = selection.toString().trim(); // 選択されたテキストを取得
@@ -217,7 +220,7 @@ document.addEventListener('click', function (event) {
                         color: col_newCategory.value,
                     };
                     reload_sel_category();
-                    chrome.storage.local.set({ categoryList: categoryList }, function () {
+                    browser.storage.local.set({ categoryList: categoryList }, function () {
                         console.log(`created new category`);
                     });
                     div_register.style.display = 'flex';
@@ -250,7 +253,7 @@ document.addEventListener('click', function (event) {
 
                     // ストレージの更新
                     console.log(`wordList: ${JSON.stringify(wordList)}`);
-                    chrome.storage.local.set({ wordList: wordList}, function () {
+                    browser.storage.local.set({ wordList: wordList}, function () {
                         console.log(`added new word`);
                     });
 
@@ -401,7 +404,7 @@ window.onload = function () {
     console.log('window.onload');
 
     try {
-        chrome.storage.local.get({ wordList: {}, categoryList: {}, userProfile: {} }, function (result) {
+        browser.storage.local.get({ wordList: {}, categoryList: {}, userProfile: {} }, function (result) {
             wordList = result.wordList;
             categoryList = result.categoryList;
             userProfile = result.userProfile;
@@ -414,9 +417,9 @@ window.onload = function () {
 };
 
 // メッセージをリッスン
-chrome.storage.onChanged.addListener((changes, namespace) => {
+browser.storage.onChanged.addListener((changes, namespace) => {
     try {
-        chrome.storage.local.get({ wordList: {}, categoryList: {}, userProfile: {} }, function (result) {
+        browser.storage.local.get({ wordList: {}, categoryList: {}, userProfile: {} }, function (result) {
             wordList = result.wordList;
             categoryList = result.categoryList;
             userProfile = result.userProfile;

@@ -2,8 +2,13 @@
 let categoryList = {};
 let userProfile = {};
 const pattern_judge = { normal: '💁‍♂️', correct: '🙆‍♂️', wrong: '🙅‍♂️', perfect: '🥇', great: '🥈', good: '🥉', bad: '🪦' };
+
+if (typeof browser === "undefined") {
+    var browser = chrome;
+}
+
 function initialize() {
-    chrome.storage.local.get({ wordList: {}, categoryList: {}, userProfile: {} }, function (result) {
+    browser.storage.local.get({ wordList: {}, categoryList: {}, userProfile: {} }, function (result) {
         wordList = result.wordList;
         categoryList = result.categoryList;
         userProfile = result.userProfile;
@@ -137,7 +142,7 @@ function initialize() {
                 });
                 bt_delete.addEventListener('click', function () {
                     delete wordList[`${id}`]; // wordListからwordを削除
-                    chrome.storage.local.set({ wordList: wordList }, function () {
+                    browser.storage.local.set({ wordList: wordList }, function () {
                         div_word.remove(); // 単語を除去
                     });
                 });
@@ -156,7 +161,7 @@ function initialize() {
         button_deleteAll.addEventListener('click', function () {
             wordList = {};
             categoryList = {};
-            chrome.storage.local.set({ wordList: wordList, categoryList: categoryList }, function () {
+            browser.storage.local.set({ wordList: wordList, categoryList: categoryList }, function () {
                 // div_categoryをすべて削除
                 let divCategoryElements = wordBook_body.querySelectorAll('.div_category');
                 divCategoryElements.forEach(element => {
@@ -191,7 +196,7 @@ function initialize() {
         });
         button_API_chatGPT.addEventListener('click', function () {
             userProfile.apiKey = in_API_chatGPT.value;
-            chrome.storage.local.set({ userProfile: userProfile }, function () {
+            browser.storage.local.set({ userProfile: userProfile }, function () {
                 console.log(`set new apiKey: ${userProfile.apiKey}`);
             });
         });
@@ -404,9 +409,9 @@ function startTest(id_category) {
 }
 
 // メッセージをリッスン
-chrome.storage.onChanged.addListener((changes, namespace) => {
+browser.storage.onChanged.addListener((changes, namespace) => {
     try {
-        chrome.storage.local.get({ wordList: {}, categoryList: {}, userProfile: {} }, function (result) {
+        browser.storage.local.get({ wordList: {}, categoryList: {}, userProfile: {} }, function (result) {
             wordList = result.wordList;
             categoryList = result.categoryList;
             userProfile = result.userProfile;
